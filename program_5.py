@@ -1,20 +1,43 @@
-# Program #5: Bank Balance
-# Write a program that asks the user to enter the amount that he or she has budgeted for a month.
-# A loop should then prompt the user to enter each of his or her expenses for the 
-# month and keep a running total. (Enter 0 to exit the loop)  
-# When the loop finishes, the program should display the amount that the 
-# user is over or under budget.
-
+#Programmer: Alethea Lo
+#Date: 2/13/25
+#Title: Bank Balance
 def main():
-    budget = 0.0
-    difference = 0.0
-    spent = 1.0         #initialize for while loop
-    total = 0.0
+    try:
+        budget = float(input("Enter your budget for the month: "))
+        if budget < 0:
+            print("Budget cannot be negative.")
+            return
 
-    ######################
-    # WRITE YOUR CODE HERE
-    ######################
+        total_expenses = 0
+        while True:
+            try:
+                expense = input("Enter an expense amount (or type 'done' to finish): ")
+                if expense.lower() == 'done':
+                    break
+
+                expense = float(expense)
+                if expense < 0:
+                    print("Expense cannot be negative. Please enter a valid amount.")
+                else:
+                    total_expenses += expense
+            except ValueError:
+                print("Invalid input. Please enter a numerical value.")
+
+        difference = budget - total_expenses
+
+        print("\nBudget Summary:")
+        print(f"Total budget: ${budget:.2f}")
+        print(f"Total expenses: ${total_expenses:.2f}")
+        if difference > 0:
+            print(f"You are under budget by ${difference:.2f}.")
+        elif difference < 0:
+            print(f"You are over budget by ${-difference:.2f}.")
+        else:
+            print("You have exactly met your budget.")
+
+    except ValueError:
+        print("Invalid input. Please enter a numerical value for the budget.")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
